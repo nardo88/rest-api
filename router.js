@@ -1,25 +1,17 @@
 import Router from 'express'
-import Post from './Post.js'
+import PostController from './PostController.js'
+
 const router = new Router()
 
 // добавление поста
-router.post('/posts', async (req, res) => {
-    try{
-        // получение данных из body
-        const {author, title, content, image} = req.body
-        const post = await Post.create({author, title, content, image})
-        res.json(post)
-    } catch(e){
-        res.status(500).json(e)
-    }
-})
+router.post('/posts', PostController.create)
 // получение всех постов
-router.get('/posts')
+router.get('/posts', PostController.getAll)
 // получение конкретного поста
-router.get('/posts/:id')
+router.get('/posts/:id', PostController.getOne)
 // изменение поста
-router.put('/posts')
+router.put('/posts', PostController.apdate)
 // удаление поста
-router.delete('/posts/:id')
+router.delete('/posts/:id', PostController.delete)
 
 export default router
